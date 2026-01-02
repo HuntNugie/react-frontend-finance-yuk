@@ -1,4 +1,4 @@
-export default function DashboardPage() {
+export default function DashboardPage() {    
     return (
         <>
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Ringkasan Keuangan</h1>
