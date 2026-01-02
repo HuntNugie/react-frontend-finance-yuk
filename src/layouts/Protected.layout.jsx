@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Sidebar } from "../components/ProtectedComponent/Sidebar";
 
 export default function ProtectedLayout() {
     return (
@@ -28,16 +29,7 @@ export default function ProtectedLayout() {
                 {/* MAIN LAYOUT */}
                 <div className="flex flex-1">
                     {/* SIDEBAR */}
-                    <aside className="hidden md:block bg-white shadow w-64">
-                        <nav className="p-4 space-y-2">
-                            <a className="block px-4 py-2 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
-                                📊 Dashboard
-                            </a>
-                            <a className="block px-4 py-2 rounded-lg hover:bg-gray-100">💰 Transaksi</a>
-                            <a className="block px-4 py-2 rounded-lg hover:bg-gray-100">📈 Laporan</a>
-                            <a className="block px-4 py-2 rounded-lg hover:bg-gray-100">⚙️ Pengaturan</a>
-                        </nav>
-                    </aside>
+                    <Sidebar/>
                     {/* CONTENT */}
                     <main className="flex-1 p-6">
                         <Outlet/>
