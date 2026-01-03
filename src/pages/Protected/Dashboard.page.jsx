@@ -1,4 +1,23 @@
-export default function DashboardPage() {    
+import { ChartFinance } from "../../components/ProtectedComponent/ChartFinance";
+
+export default function DashboardPage() {
+    const weeklyData = [
+        {label: "Sen", amount: 200000},
+        {label: "Sel", amount: 350000},
+        {label: "Rab", amount: 150000},
+        {label: "Kam", amount: 400000},
+        {label: "Jum", amount: 300000},
+        {label: "Sab", amount: 500000},
+        {label: "Min", amount: 250000},
+    ];
+
+    const monthlyData = [
+        {label: "Minggu 1", amount: 2500000},
+        {label: "Minggu 2", amount: 3200000},
+        {label: "Minggu 3", amount: 2800000},
+        {label: "Minggu 4", amount: 3500000},
+    ];
+
     return (
         <>
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Ringkasan Keuangan</h1>
@@ -9,16 +28,16 @@ export default function DashboardPage() {
                     <h2 className="text-2xl font-bold text-gray-800">Rp 12.500.000</h2>
                 </div>
                 <div className="bg-white rounded-xl shadow p-6">
-                    <p className="text-sm text-gray-500">Pemasukan</p>
+                    <p className="text-sm text-gray-500">Total Pemasukan</p>
                     <h2 className="text-2xl font-bold text-green-600">Rp 8.000.000</h2>
                 </div>
                 <div className="bg-white rounded-xl shadow p-6">
-                    <p className="text-sm text-gray-500">Pengeluaran</p>
+                    <p className="text-sm text-gray-500">Total Pengeluaran</p>
                     <h2 className="text-2xl font-bold text-red-500">Rp 5.500.000</h2>
                 </div>
             </div>
             {/* TABLE */}
-            <div className="bg-white rounded-xl shadow p-6">
+            <div className="bg-white rounded-xl shadow p-6 mb-4">
                 <h2 className="font-semibold text-gray-800 mb-4">Transaksi Terakhir</h2>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
@@ -43,6 +62,14 @@ export default function DashboardPage() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            {/* CHARTS */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <ChartFinance title={"Pengeluaran minggu ini"} data={weeklyData}/>    
+                <ChartFinance title={"Pemasukan minggu ini"} data={weeklyData}/>    
+                <ChartFinance title={"Pengeluaran bulan ini"} data={monthlyData}/>    
+                <ChartFinance title={"Pemasukan bulan ini"} data={monthlyData}/>    
             </div>
         </>
     );
