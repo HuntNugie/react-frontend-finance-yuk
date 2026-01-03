@@ -8,6 +8,8 @@ export default function LoginPage() {
         email: "",
         password: "",
     });
+    const [error, setError] = useState([]);
+
     const [loading, setLoading] = useState(false);
     const handleChange = (e) => {
         setForm((prev) => ({...prev, [e.target.name]: e.target.value}));
@@ -21,7 +23,7 @@ export default function LoginPage() {
             await handleLogin(form);
             nav("/dashboard", {replace: true});
         } catch (err) {
-            console.log(err.response.data);
+            setError(err.response.data.error);
         } finally {
             setLoading(false);
         }
@@ -36,6 +38,16 @@ export default function LoginPage() {
                     <p className="text-sm text-gray-500">Kelola keuanganmu dengan sadar</p>
                 </div>
 
+                {error.length > 0 && (
+                    <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                        <p className="font-medium">Terjadi kesalahan</p>
+                        <ul className="mt-1 list-disc list-inside space-y-1">
+                           {error.map((el,index)=>{
+                            return <li key={index}>{el.msg}</li>
+                           })}
+                        </ul>
+                    </div>
+                )}
                 {/* Form */}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
