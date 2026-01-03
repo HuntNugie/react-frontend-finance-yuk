@@ -11,3 +11,7 @@ export const CheckMe = () => {
 export const Logout = () => {
     return apiAuth.post("/api/auth/logout", {});
 };
+
+export const Register = (payload)=>{
+    return api.post("/api/auth/register",payload)
+}
