@@ -2,6 +2,7 @@ import {Outlet} from "react-router-dom";
 import {Sidebar} from "../components/ProtectedComponent/Sidebar";
 import {Navbar} from "../components/ProtectedComponent/Navbar";
 import {useState} from "react";
+import { SetupOverlay } from "../components/ProtectedComponent/SetupOverlay";
 
 export default function ProtectedLayout() {
     const [sideOpen, setSideOpen] = useState(false);
@@ -9,8 +10,11 @@ export default function ProtectedLayout() {
     const handleToggle = () => {
         setSideOpen(!sideOpen);
     };
+    const tes = true;
+    
     return (
         <>
+            {tes && <SetupOverlay/>}
             <div className="min-h-screen bg-gray-100 flex flex-col">
                 {/* NAVBAR */}
                 <Navbar onToggle={handleToggle} />
