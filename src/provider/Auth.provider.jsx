@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import AuthContext from "../context/AuthContext";
-import {CheckMe, Login, Logout} from "../service/Auth.service";
+import {CheckMe, Login, Logout, Register} from "../service/Auth.service";
 import {Loading} from "../components/Loading";
 
 export default function AuthProvider({children}) {
@@ -34,9 +34,18 @@ export default function AuthProvider({children}) {
             console.log(error);
         }
     };
+
+    const handleRegister = async (payload) => {
+        await Register(payload);
+    };
+
     if (loading) {
         return <Loading />;
     }
 
-    return <AuthContext.Provider value={{user, handleLogin, handleLogout}}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={{user, handleLogin, handleLogout, handleRegister}}>
+            {children}
+        </AuthContext.Provider>
+    );
 }

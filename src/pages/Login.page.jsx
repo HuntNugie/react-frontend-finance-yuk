@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useAuth} from "../hooks/useAuth";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function LoginPage() {
     const {handleLogin} = useAuth();
@@ -115,7 +115,7 @@ export default function LoginPage() {
                 </button>
 
                 <p className="text-sm text-center text-gray-500 mt-6">
-                    Belum punya akun? <span className="text-indigo-600 font-medium cursor-pointer">Daftar</span>
+                    Belum punya akun? <Link className="text-indigo-600 font-medium cursor-pointer" to={"/register"}>Daftar</Link>
                 </p>
             </div>
         </>
