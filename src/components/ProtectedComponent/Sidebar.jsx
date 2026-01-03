@@ -1,4 +1,25 @@
+import {useState} from "react";
+import {useAuth} from "../../hooks/useAuth";
+import {Loading} from "../Loading";
+import {useNavigate} from "react-router-dom";
+
 export const Sidebar = ({isOpen}) => {
+    const {handleLogout} = useAuth();
+    const [loading, setLoading] = useState(false);
+    const nav = useNavigate();
+    const handleLogoutKlik = async (e) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            await handleLogout();
+            nav("/login", {replace: true});
+        } finally {
+            setLoading(false);
+        }
+    };
+    if (loading) {
+        return <Loading />;
+    }
     return (
         <aside
             className={`
@@ -23,6 +44,7 @@ export const Sidebar = ({isOpen}) => {
     transition
     cursor-pointer
   "
+                    onClick={handleLogoutKlik}
                 >
                     🚪 Logout
                 </button>

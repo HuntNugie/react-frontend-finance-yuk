@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// digunakan untuk jika membutuhkan auth
 const apiAuth = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API,
     withCredentials: true,

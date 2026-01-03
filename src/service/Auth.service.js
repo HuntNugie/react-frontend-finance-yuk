@@ -1,17 +1,13 @@
-import {api} from "./axios.service";
+import apiAuth, {api} from "./axios.service";
 
-export const Login = async (payload) => {
-    const response = await api.post("/api/auth/login", payload);
-    const data = response.data;
-    return data;
+export const Login = (payload) => {
+    return api.post("/api/auth/login", payload);
 };
 
-export const checkMe = async () => {
-    try {
-        const response = await api.get("/api/auth/me");
-        const data = response.data;
-        return data;
-    } catch (error) {
-        throw new Error(error.response.data.error);
-    }
+export const CheckMe = () => {
+    return api.get("/api/auth/me");
+};
+
+export const Logout = () => {
+    return apiAuth.post("/api/auth/logout", {});
 };
