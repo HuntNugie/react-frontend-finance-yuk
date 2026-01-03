@@ -1,4 +1,31 @@
+import {useState} from "react";
+import {useAuth} from "../hooks/useAuth";
+import {useNavigate} from "react-router-dom";
+
 export default function LoginPage() {
+    const {handleLogin} = useAuth();
+    const [form, setForm] = useState({
+        email: "",
+        password: "",
+    });
+    const [loading, setLoading] = useState(false);
+    const handleChange = (e) => {
+        setForm((prev) => ({...prev, [e.target.name]: e.target.value}));
+    };
+    const nav = useNavigate();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            setLoading(true);
+            await handleLogin(form);
+            nav("/dashboard", {replace: true});
+        } catch (err) {
+            console.log(err.response.data);
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         <>
             <div className="bg-white w-full max-w-md rounded-xl shadow p-8">
@@ -10,12 +37,15 @@ export default function LoginPage() {
                 </div>
 
                 {/* Form */}
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label className="text-sm text-gray-600">Email</label>
                         <input
                             type="email"
+                            name="email"
+                            onChange={handleChange}
                             className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
                         />
                     </div>
 
@@ -23,15 +53,19 @@ export default function LoginPage() {
                         <label className="text-sm text-gray-600">Password</label>
                         <input
                             type="password"
+                            name="password"
+                            onChange={handleChange}
                             className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
                         />
                     </div>
 
                     <button
                         type="submit"
                         className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition cursor-pointer"
+                        disabled={loading}
                     >
-                        Login
+                        {loading ? "tunggu sebentar" : "Login"}
                     </button>
                 </form>
 
