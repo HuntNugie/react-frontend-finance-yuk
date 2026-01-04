@@ -30,6 +30,7 @@ export default function AuthProvider({children}) {
     const handleLogout = async () => {
         try {
             await Logout();
+            setUser(null)
         } catch (error) {
             console.log(error);
         }

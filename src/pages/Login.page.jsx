@@ -1,9 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useAuth} from "../hooks/useAuth";
 import {Link, useNavigate} from "react-router-dom";
 
 export default function LoginPage() {
-    const {handleLogin} = useAuth();
+    const {handleLogin, user} = useAuth();
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -21,12 +21,19 @@ export default function LoginPage() {
         try {
             setLoading(true);
             await handleLogin(form);
-            nav("/dashboard", {replace: true});
         } catch (err) {
             setError(err.response.data.error);
         } finally {
             setLoading(false);
         }
+    };
+    useEffect(() => {
+        if (!loading && user) {
+            nav("/dashboard", {replace: true});
+        }
+    }, [loading, user]);
+    const handleOauth = () => {
+        window.location.href = `${import.meta.env.VITE_BACKEND_API}/api/auth/google`;
     };
     return (
         <>
@@ -42,9 +49,9 @@ export default function LoginPage() {
                     <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                         <p className="font-medium">Terjadi kesalahan</p>
                         <ul className="mt-1 list-disc list-inside space-y-1">
-                           {error.map((el,index)=>{
-                            return <li key={index}>{el.msg}</li>
-                           })}
+                            {error.map((el, index) => {
+                                return <li key={index}>{el.msg}</li>;
+                            })}
                         </ul>
                     </div>
                 )}
@@ -92,6 +99,7 @@ export default function LoginPage() {
                 <button
                     type="button"
                     className="w-full flex items-center justify-center gap-3 border py-2 rounded-lg hover:bg-gray-200 transition cursor-pointer"
+                    onClick={handleOauth}
                 >
                     <svg className="w-5 h-5" viewBox="0 0 48 48">
                         <path
@@ -115,7 +123,10 @@ export default function LoginPage() {
                 </button>
 
                 <p className="text-sm text-center text-gray-500 mt-6">
-                    Belum punya akun? <Link className="text-indigo-600 font-medium cursor-pointer" to={"/register"}>Daftar</Link>
+                    Belum punya akun?{" "}
+                    <Link className="text-indigo-600 font-medium cursor-pointer" to={"/register"}>
+                        Daftar
+                    </Link>
                 </p>
             </div>
         </>

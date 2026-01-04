@@ -1,4 +1,4 @@
-export const Loading = () => {
+export const Loading = ({wait}) => {
     return (
         <>
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-indigo-600 via-indigo-500 to-indigo-700">
@@ -7,7 +7,7 @@ export const Loading = () => {
                     <div className="w-14 h-14 border-4 border-white/30 border-t-white rounded-full animate-spin" />
 
                     {/* Text */}
-                    <p className="text-white font-medium tracking-wide">Menyiapkan Menu...</p>
+                    <p className="text-white font-medium tracking-wide">Menyiapkan {wait ? wait : "Menu"}...</p>
 
                     {/* Brand */}
                     <span className="text-sm text-white/70">FinanceYuk • ngkCompany</span>
