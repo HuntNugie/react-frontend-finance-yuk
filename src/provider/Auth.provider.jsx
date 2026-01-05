@@ -7,21 +7,20 @@ export default function AuthProvider({children}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     // untuk pertama kali render check
+    const handleCheck = async () => {
+        try {
+            const res = await CheckMe();
+            setUser(res.data);
+        } catch (error) {
+            console.log(error.response.data.error);
+        } finally {
+            setLoading(false);
+        }
+    };
     useEffect(() => {
-        const handleCheck = async () => {
-            try {
-                const res = await CheckMe();
-                setUser(res.data);
-            } catch (error) {
-                console.log(error.response.data.error);
-            } finally {
-                setLoading(false);
-            }
-        };
         handleCheck();
     }, []);
 
-   
     const handleLogin = async (payload) => {
         const res = await Login(payload);
         setUser(res.data);
@@ -29,7 +28,7 @@ export default function AuthProvider({children}) {
 
     const handleLogout = async () => {
         await Logout();
-        setUser(null)
+        setUser(null);
     };
 
     const handleRegister = async (payload) => {
@@ -41,7 +40,7 @@ export default function AuthProvider({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{user, handleLogin, handleLogout, handleRegister}}>
+        <AuthContext.Provider value={{user, handleLogin, handleLogout, handleRegister,handleCheck}}>
             {children}
         </AuthContext.Provider>
     );

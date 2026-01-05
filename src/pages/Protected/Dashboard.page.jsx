@@ -1,6 +1,9 @@
 import { ChartFinance } from "../../components/ProtectedComponent/ChartFinance";
+import { useAuth } from "../../hooks/useAuth";
+import { formatIdr } from "../../utils/currency";
 
 export default function DashboardPage() {
+    const {user} = useAuth();
     const weeklyData = [
         {label: "Sen", amount: 200000},
         {label: "Sel", amount: 350000},
@@ -25,15 +28,15 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white rounded-xl shadow p-6">
                     <p className="text-sm text-gray-500">Saldo</p>
-                    <h2 className="text-2xl font-bold text-gray-800">Rp 12.500.000</h2>
+                    <h2 className="text-2xl font-bold text-gray-800"> {formatIdr(user?.data?.wallet?.saldo) || "Rp.0"}</h2>
                 </div>
                 <div className="bg-white rounded-xl shadow p-6">
                     <p className="text-sm text-gray-500">Total Pemasukan</p>
-                    <h2 className="text-2xl font-bold text-green-600">Rp 8.000.000</h2>
+                    <h2 className="text-2xl font-bold text-green-600">Rp 0</h2>
                 </div>
                 <div className="bg-white rounded-xl shadow p-6">
                     <p className="text-sm text-gray-500">Total Pengeluaran</p>
-                    <h2 className="text-2xl font-bold text-red-500">Rp 5.500.000</h2>
+                    <h2 className="text-2xl font-bold text-red-500">Rp 0</h2>
                 </div>
             </div>
             {/* TABLE */}
