@@ -18,7 +18,7 @@ export const Sidebar = ({isOpen}) => {
     };
     useEffect(() => {
         if (!loading && !user) {
-            nav("/login", {replace: true});
+            nav("/login");
         }
     }, [loading, user]);
     

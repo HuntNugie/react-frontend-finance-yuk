@@ -6,7 +6,6 @@ import {Loading} from "../components/Loading";
 export default function AuthProvider({children}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
     // untuk pertama kali render check
     useEffect(() => {
         const handleCheck = async () => {
@@ -22,18 +21,15 @@ export default function AuthProvider({children}) {
         handleCheck();
     }, []);
 
+   
     const handleLogin = async (payload) => {
         const res = await Login(payload);
         setUser(res.data);
     };
 
     const handleLogout = async () => {
-        try {
-            await Logout();
-            setUser(null)
-        } catch (error) {
-            console.log(error);
-        }
+        await Logout();
+        setUser(null)
     };
 
     const handleRegister = async (payload) => {
