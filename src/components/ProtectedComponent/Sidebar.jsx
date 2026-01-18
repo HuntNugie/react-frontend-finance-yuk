@@ -1,12 +1,13 @@
 import {useEffect, useState} from "react";
 import {useAuth} from "../../hooks/useAuth";
-import {Loading} from "../Loading";
-import {useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 export const Sidebar = ({isOpen}) => {
     const {handleLogout, user} = useAuth();
     const [loading, setLoading] = useState(false);
     const nav = useNavigate();
+    const location = useLocation();
+    
     const handleLogoutKlik = async (e) => {
         e.preventDefault();
         try {
@@ -34,8 +35,8 @@ export const Sidebar = ({isOpen}) => {
   `}
         >
             <nav className="p-4 space-y-2">
-                <a className="block px-4 py-2 rounded-lg bg-indigo-50 text-indigo-600 font-medium">📊 Dashboard</a>
-                <a className="block px-4 py-2 rounded-lg hover:bg-gray-100">💰 Transaksi</a>
+                <Link className={`block px-4 py-2 rounded-lg ${location.pathname === "/dashboard" ? "bg-indigo-50 text-indigo-600 font-medium" : ""} `} to={"/dashboard"}>📊 Dashboard</Link>
+                <Link className={`block px-4 py-2 rounded-lg ${location.pathname === "/transaksi" ? "bg-indigo-50 text-indigo-600 font-medium" : ""} `} to={"/transaksi"}>💰 Transaksi</Link>
                 <a className="block px-4 py-2 rounded-lg hover:bg-gray-100">📈 Laporan</a>
                 <a className="block px-4 py-2 rounded-lg hover:bg-gray-100">⚙️ Pengaturan</a>
                 <button
